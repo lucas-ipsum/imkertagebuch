@@ -1,0 +1,122 @@
+<!-- Liste aller Stockeintraege -->
+
+{% extends "layout.html" %}
+{% block content %}
+<h3>Stockeinträge</h3>
+<h5 class="text-muted">{{ beute.name }}</h5>      <!--TODO dynamisch an aktuelle Beute anpassen -->
+
+<!-- Start Tabelle -->
+<table class="table table-hover">
+    <thead class="text-center">
+      <tr>
+        <th scope="col">Datum</th>
+        <th scope="col">Waben belegt</th>
+        <th scope="col">Brut Weiselzellen</th>
+        <th scope="col">Brut Ei</th>
+        <th scope="col">Brut offen</th>
+        <th scope="col">Brut verdeckelt</th>
+        <th scope="col">Wabensitz</th>
+        <th scope="col">Sanftmut</th>
+        <th scope="col">Waben +/-</th>
+        <th scope="col">MW +/-</th>
+        <th scope="col">Brut +/-</th>
+        <th scope="col">Bienen (kg) +/-</th>
+        <th scope="col">Honig (kg) +/-</th>
+        <th scope="col">Zucker (kg) +/-</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <!-- Reihe 1 -->
+    <tbody class="text-center align-middle">
+        <tr>
+            {% for stock_eintrag in stock_eintraege %}
+            <th scope="row">{{ stock_eintrag.date_posted.strftime('%d.%m.%Y')}} </th>
+            <td >{{ stock_eintrag.wabenbelegt}}</td>
+            <td>
+                {% if stock_eintrag.brutw == True %}
+                    <i class="bi bi-check-circle-fill text-success"></i>
+                {% else %}
+                     <i class="bi bi-x-circle-fill text-danger"></i>
+                {% endif %}
+            </td>
+            <td>
+                {% if stock_eintrag.brutei == True %}
+                    <i class="bi bi-check-circle-fill text-success"></i>
+                {% else %}
+                    <i class="bi bi-x-circle-fill text-danger"></i>
+                {% endif %}
+            </td>
+            <td>
+                {% if stock_eintrag.brut_offen == True %}
+                    <i class="bi bi-check-circle-fill text-success"></i>
+                {% else %}
+                    <i class="bi bi-x-circle-fill text-danger"></i>
+                {% endif %}
+            </td>
+            <td>
+                {% if stock_eintrag.brut_verdeckt == True %}
+                    <i class="bi bi-check-circle-fill text-success"></i>
+                {% else %}
+                    <i class="bi bi-x-circle-fill text-danger"></i>
+                {% endif %}
+            </td>
+            <td>
+                {% if stock_eintrag.wabensitz != none %}
+                    {{ stock_eintrag.wabensitz }}
+                {% else %}
+                    <div class="text-muted">-</div>
+                {% endif %}
+            </td>
+            <td>
+                {% if stock_eintrag.sanftmut != none %}
+                    {{ stock_eintrag.sanftmut }}
+                {% else %}
+                    <div class="text-muted">-</div>
+                {% endif %}
+            </td>
+            <td>
+                {% if stock_eintrag.veraend_waben != 0 %}
+                    {{ stock_eintrag.veraend_waben }}
+                {% else %}
+                    <div class="text-muted">-</div>
+                {% endif %}
+            </td>
+            <td>
+                {% if stock_eintrag.veraend_mittelwand != 0 %}
+                    {{ stock_eintrag.veraend_mittelwand }}
+                {% else %}
+                    <div class="text-muted">-</div>
+                {% endif %}
+            </td>
+            <td>
+                {% if stock_eintrag.veraend_brut != 0 %}
+                    {{ stock_eintrag.veraend_brut }}
+                {% else %}
+                    <div class="text-muted">-</div>
+                {% endif %}
+            </td>
+            <td>
+                {% if stock_eintrag.veraend_bienen != 0 %}
+                    {{ stock_eintrag.veraend_bienen }}
+                {% else %}
+                    <div class="text-muted">-</div>
+                {% endif %}
+            </td>
+            <td>
+                {% if stock_eintrag.veraend_honig_kg != 0 %}
+                    {{ stock_eintrag.veraend_honig_kg }}
+                {% else %}
+                    <div class="text-muted">-</div>
+                {% endif %}
+            </td>
+            <td></td>
+            <td> <a href="{{ url_for('show_stockeintrag', stock_id=stock_eintrag.id)}}">Details</a></td>            <!-- TODO Besseren Ansatz finden (tr muss klickbar sein) -->
+        </tr>
+        </a>
+      {% endfor %}
+
+    </tbody>
+  </table>
+
+
+{% endblock content %}

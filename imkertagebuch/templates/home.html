@@ -1,0 +1,56 @@
+   {% extends "layout.html" %}
+   {% block content %}
+   <h2>Standort - HTW Berlin</h2>     <!-- TODO Standort dynamisch einsetzen + Standort ändern, falls User mehrere Standorte hat -->
+
+<!-- ### Beuten ###-->
+  <div class="row g-4">
+    {% for beute in beuten %}
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title mb-0">{{ beute.name }}</h5>
+          <!-- StockEinträge aktueller beute -->
+          {% for stockeintrag in latest_stockeintraege %}
+            {% if beute.id == stockeintrag.beute_id %}
+             <p class="card-text text-muted mb-0"> Letzter Eintrag: {{ stockeintrag.date_posted.strftime('%d.%m.%Y') }} </p>
+            <!-- TODO die wichtigsten letzten Daten anzeigen -->
+              <!-- Belegte Waben -->
+              <div class="my-2">
+                <span class="status_stockkarte rounded-pill px-3">Belegte Waben: <b>{{ stockeintrag.wabenbelegt }}</b></span>
+                <span class="status_stockkarte rounded-pill px-3">Sanftmut: <b>{{ stockeintrag.sanftmut }}</b></span>
+              </div>
+              <!-- Brut -->
+              {% if stockeintrag.brutei %}
+                <span class="status_stockkarte rounded-pill px-3">Eier</span>
+              {% endif %}
+              {% if stockeintrag.brutw %}
+              <span class="status_stockkarte rounded-pill px-3">Weiselzellen</span>
+              {% endif %}
+              {% if stockeintrag.brut_offen %}
+              <span class="status_stockkarte rounded-pill px-3">Unverdeckelte Brut</span>
+              {% endif %}
+              {% if stockeintrag.brut_verdeckt %}
+              <span class="status_stockkarte rounded-pill px-3">Verdeckelte Brut</span>
+              {% endif %}
+            <!-- TODO hinweis, falls keine Einträge vorhanden -->
+            {% endif %}
+          {% endfor %}
+          <div class="row justify-content-evenly mt-3">
+            <a href="{{ url_for('new_stock_eintrag', beute=beute.id) }}" class="col-sm-4 m-2 btn btn-outline-primary">Neuer Stock-Eintrag</a>
+            <a href="{{ url_for('get_stockeintraege_byBeute', karte_id=beute.stockkarte_id[0].id) }}" class="col-sm-4 m-2 btn btn-outline-primary">Stock-Karte</a>      <!--Aufruf hier über ID Stockkarte (über Relationship Beute Stockkarte)-->
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+<!-- TODO -->
+  <div class="row justify-content-between aign-middle text-center my-4">
+    <a class="col-sm-2 btn add_content_btn" href="">Stock-Eintrag</a>                     <!--('new_stock_eintrag')-->
+    <a class="col-sm-2 btn add_content_btn" href="{{ url_for('get_beuten') }}">Beuten</a>
+    <a class="col-sm-2 btn add_content_btn" href="#">Stock-Karte</a>
+    <a class="col-sm-2 btn add_content_btn" href="#">Königin</a>
+    <a class="col-sm-2 btn add_content_btn" href="#">Volk</a>
+  </div>
+{% endblock content %}

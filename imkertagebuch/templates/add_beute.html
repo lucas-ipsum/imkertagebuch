@@ -1,0 +1,35 @@
+{% extends "layout.html" %} 
+{% block content %}
+<h3>Beute hinzufügen</h3>
+<form action="" method="POST">
+    {{ form.hidden_tag() }} 
+    <div class="mt-5 border">
+        <div class="row justify-content-center">
+            <div class="form-floating mt-5 my-3 col-md-7">
+                {{ form.name(class="form-control px-3", id="floatingInput", placeholder="Name") }}
+                <label class="mx-3" for="floatingInput">Name</label>
+            </div>
+            <div class="form-floating my-3 col-md-7">
+            {% if form.nummer.errors %}
+                {{ form.nummer(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.nummer.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% else %}
+                {{ form.nummer(class="form-control px-3", id="floatingInput", placeholder="Nummer") }}
+                <label class="mx-3" for="floatingInput">Nummer</label>
+            {% endif %}
+            </div>
+        </div>
+        <div class="row text-center mt-3 mb-5">
+            <div class="form-group">
+                {{ form.submit(class="btn btn-primary")}}
+            </div>
+        </div>
+    
+    </div>
+</form>
+
+{% endblock content %}

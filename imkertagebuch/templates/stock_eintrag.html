@@ -1,0 +1,164 @@
+{% extends "layout.html" %} 
+{% block content %}
+<div class="container">
+    <form method="POST">
+        {{ form.hidden_tag() }} 
+        <div class="mt-5 p-3 border form-group">
+            <div class="row px-3 mb-3 justify-content-center">
+                <div class="col-sm-10 col-md-4">
+                    {{ form.beute_id(class="form-select") }}
+                </div>
+            </div>
+            <h4>Allgemeiner Befund</h3>
+               <p>{{ beute }}</p> 
+            <!-- Reihe Boolean Buttons -->
+            <div class="row justify-content-evenly">
+                <div class="btn stockeintrag_icon col-md-2 my-3 col-5 rounded">
+                    <p>Brut Weiselzellen</p>
+                    {{ form.brutw(class="form-check-input", type="checkbox", id="brutw") }}
+                </div>
+                <div class="btn stockeintrag_icon col-md-2 col-5 my-3 rounded">
+                    <p>Brut Ei</p>
+                    {{ form.brutei(class="form-check-input", type="checkbox", id="brutei") }}
+                </div>
+                <div class="btn stockeintrag_icon col-md-2 col-5 my-3 rounded">
+                    <p>Brut Offen</p>
+                    {{ form.brut_offen(class="form-check-input", type="checkbox", id="brut_offen") }}
+                </div>
+                <div class="btn stockeintrag_icon col-md-2 col-5 my-3 rounded">
+                    <p>Brut Verdeckelt</p>
+                    {{ form.brut_verdeckt(class="form-check-input", type="checkbox", id="brut_verdeckt") }}
+                </div>
+            </div>
+            <!-- Reihe Slider -->
+            <div class="row my-3 justify-content-evenly">
+                <div class="col-md-5">
+                    <label for="sanftmut_slider" class="form-label text-muted">Sanftmut: <span id="sanftmut_value"></span></label>
+                    {{ form.sanftmut(class="form-range slider", min="0", max="10", id="sanftmut_slider", value=form.sanftmut.default)}}
+                </div>
+                <div class="col-md-5">
+                    <label for="wabensitz_slider" class="form-label text-muted">Wabensitz: <span id="wabensitz_value"></span></label>
+                    {{ form.wabensitz(class="form-range slider", min="0", max="4", id="wabensitz_slider")}}
+                </div>
+            </div>
+            <!-- Reihe Plus/ Minus Buttons -->
+            <div class="row my-3 justify-content-evenly">
+                <!-- Waben belegt -->
+                <div class="col-md-5 text-center">
+                    <p class="mb-0">Waben belegt</p>
+                    <div id="wabenbelegt_minus" class="btn plus_minus_icon">
+                        <i class="bi bi-dash-square"></i>
+                    </div>
+                    {{ form.wabenbelegt(class="py-3 value_plus_minus", id="spinner_val_wabenbelegt", value=form.wabenbelegt.default) }}
+                    <div id="wabenbelegt_plus"class="btn plus_minus_icon">
+                        <i class="bi bi-plus-square"></i>                    
+                    </div>
+                </div>
+                <!-- Futter kg -->
+                <div class="col-md-5 text-center">
+                    <p class="mb-0">Futter (kg)</p>
+                    <div id="futter_minus" class="btn plus_minus_icon">
+                        <i class="bi bi-dash-square"></i>
+                    </div>
+                    {{ form.futter(class="py-3 value_plus_minus", id="spinner_val_futter", value=form.futter.default) }}
+                    <div id="futter_plus"class="btn plus_minus_icon">
+                        <i class="bi bi-plus-square "></i>                    
+                    </div>
+                </div>
+            </div>
+            <div class="row my-3 justify-content-evenly">
+                <div class="col-md-6 col-sm-10">
+                    <label for="kommentar" class="form-label">Anmerkungen</label>
+                    {{ form.kommentar(class="form-control", id="kommentar")}}
+                </div>
+            </div>
+            <h4>Hinzugefügt / Entnommen</h3>
+            <div class="row text-center mt-3 mb-2">
+                <div class="btn" id="expand_buttons" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_2nd_area" aria-controls="collapse_2nd_area">
+                    <img id="arrow_down" src="{{url_for('static', filename='down-arrow.png')}}" height="70px" alt="Arrow Down">
+                    <img style="display: none;" id="arrow_up" src="{{url_for('static', filename='up-arrows.png')}}" height="70px" alt="Arrow Up">
+                   <!-- <i class="bi bi-arrow-bar-down collapse_btn"></i> -->
+                </div>
+            </div>
+            <div class="collapse row my-3 justify-content-evenly" id="collapse_2nd_area">
+                <h5>Brutraum</h5>
+                <!-- Veränderung Waben -->
+                <div class="col-md-4 text-center">
+                    <p class="mb-0">Waben</p>
+                    <div id="waben_minus" class="btn plus_minus_icon">
+                        <i class="bi bi-dash-square"></i>
+                    </div>
+                    {{ form.veraend_waben(class="py-3 value_plus_minus", id="spinner_val_veraend_waben", value=form.veraend_waben.default) }}
+                    <div id="waben_plus"class="btn plus_minus_icon">
+                        <i class="bi bi-plus-square "></i>                    
+                    </div>
+                </div>
+                <!-- Veränderung Mittelwand -->
+                <div class="col-md-4 text-center">
+                    <p class="mb-0">Mittelwand</p>
+                    <div id="mittelwand_minus" class="btn plus_minus_icon">
+                        <i class="bi bi-dash-square"></i>
+                    </div>
+                    {{ form.veraend_mittelwand(class="py-3 value_plus_minus", id="spinner_val_veraend_mittelwand", value=form.veraend_mittelwand.default) }}
+                    <div id="mittelwand_plus"class="btn plus_minus_icon">
+                        <i class="bi bi-plus-square "></i>                    
+                    </div>
+                </div>
+                <!-- Veränderung Brut -->
+                <div class="col-md-4 text-center">
+                    <p class="mb-0">Brut</p>
+                    <div id="brut_minus" class="btn plus_minus_icon">
+                        <i class="bi bi-dash-square"></i>
+                    </div>
+                    {{ form.veraend_brut(class="py-3 value_plus_minus", id="spinner_val_veraend_brut", value=form.veraend_brut.default) }}
+                    <div id="brut_plus"class="btn plus_minus_icon">
+                        <i class="bi bi-plus-square "></i>                    
+                    </div>
+                </div>
+            </div>
+            <div class="collapse row my-3 justify-content-evenly" id="collapse_2nd_area">
+                <h5>Honigraum</h5>
+                <!-- Veränderung Drohnenrahmen -->
+                <div class="col-md-4 text-center">
+                    <p class="mb-0">Drohnenrahmen</p>
+                    <div id="drohnenrahmen_minus" class="btn plus_minus_icon">
+                        <i class="bi bi-dash-square"></i>
+                    </div>
+                    {{ form.veraend_drohnenrahmen(class="py-3 value_plus_minus", id="spinner_val_veraend_drohnenrahmen", value=form.veraend_drohnenrahmen.default) }}
+                    <div id="drohnenrahmen_plus"class="btn plus_minus_icon">
+                        <i class="bi bi-plus-square "></i>                    
+                    </div>
+                </div>
+                <!-- Veränderung Bienen -->
+                <div class="col-md-4 text-center">
+                    <p class="mb-0">Bienen</p>
+                    <div id="bienen_minus" class="btn plus_minus_icon">
+                        <i class="bi bi-dash-square"></i>
+                    </div>
+                    {{ form.veraend_bienen(class="py-3 value_plus_minus", id="spinner_val_veraend_bienen", value=form.veraend_bienen.default) }}
+                    <div id="bienen_plus"class="btn plus_minus_icon">
+                        <i class="bi bi-plus-square "></i>                    
+                    </div>
+                </div>
+                <!-- Veränderung Honig (kg) -->
+                <div class="col-md-4 text-center">
+                    <p class="mb-0">Honig (kg)</p>
+                    <div id="honig_minus" class="btn plus_minus_icon">
+                        <i class="bi bi-dash-square"></i>
+                    </div>
+                    {{ form.veraend_honig_kg(class="py-3 value_plus_minus", id="spinner_val_veraend_honig_kg", value=form.veraend_honig_kg.default) }}
+                    <div id="honig_plus"class="btn plus_minus_icon">
+                        <i class="bi bi-plus-square "></i>                    
+                    </div>
+                </div>
+            </div>
+            <div class="row text-center mt-3 mb-2">
+                <div class="form-group">
+                    {{ form.submit(class="btn btn-outline-success")}}
+                </div>
+            </div>
+        
+        </div>
+    </form>
+</div>
+{% endblock content %}

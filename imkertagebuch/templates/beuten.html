@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% block content %}
+<h3>Beuten</h3>
+<a href="{{ url_for('add_beute') }}">
+    <i class="btn bi bi-plus-square"></i>
+</a>
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Nummer</th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+            {% for beute in beuten %}
+            <tr class="align-middle" id="{{ beute.id }}">
+                    <th scope="row">{{ beute.nummer }} </th>
+                    <td >{{ beute.name }}</td>
+                    <td class="text-end">
+                        <a href="{{ url_for('get_beute_byID', beute_id = beute.id) }}">
+                            <i class="btn table_icon text-primary mr-4 bi bi-pencil-square"></i>
+                        </a>
+                        <a href="#">
+                            <i class="btn table_icon bi text-danger bi-trash"></i>
+                        </a>
+                    </td>
+            </tr>
+            {% endfor %}
+    </tbody>
+</table>
+{% endblock content %}

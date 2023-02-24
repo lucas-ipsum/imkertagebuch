@@ -1,0 +1,160 @@
+{% extends "layout.html" %}
+{% block content %}
+<h3>Stock Eintrag: {{ stock_eintrag.karte.beute.name }}</h3> <!--TODO Aktuelle Beute anzeigen-->
+<div class="text-muted">
+    <a class="ml-2" href="#">{{ stock_eintrag.autor.username }}</a>   <br>      <!-- TODO Link auf Profil? -> Öffentliches und privates Profil -->
+    {{ stock_eintrag.date_posted.strftime('%d.%m.%Y %H:%M') }}
+</div> 
+
+
+<div class="card">
+    <div class="card-body">
+        <!-- Abschnitt Allgemeiner Befund -->
+        <h5 class="card-title">Allgemeiner Befund</h5>
+        <div class="row my-2">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Brut</h5>
+                            <div class="text-center row gy-5 gx-3">
+                                <div class="col-6">
+                                    {% if stock_eintrag.brutw == True %}
+                                        <div class="stock_icon_true py-3 mx-3 fw-bold border rounded">Brut<br>Weiselzellen</div>
+                                    {% else %}
+                                        <div class="py-3 mx-3 border bg-light rounded text-muted">Brut<br>Weiselzellen</div>
+                                    {%  endif %}
+                                </div>
+                                <div class="col-6">
+                                    {% if stock_eintrag.brutei == True %}
+                                        <div class="py-3 mx-3 border fw-bold stock_icon_true rounded">Brut<br>Eier</div>
+                                    {% else %}
+                                        <div class="py-3 mx-3 border bg-light rounded text-muted">Brut<br>Eier</div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-6">
+                                    {% if stock_eintrag.brut_offen == True %}
+                                        <div class="py-3 mx-3 border stock_icon_true fw-bold rounded">Brut<br>Offen</div>
+                                    {% else %}
+                                    <div class="py-3 mx-3 border bg-light rounded text-muted">Brut<br>Offen</div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-6">
+                                    {% if stock_eintrag.brut_verdeckt == True %}
+                                        <div class="py-3 mx-3 border stock_icon_true fw-bold rounded">Brut<br>verdeckelt</div>
+                                    {% else %}
+                                        <div class="py-3 mx-3 border bg-light rounded text-muted">Brut<br>verdeckelt</div>
+                                    {% endif %}
+                                </div>            
+                            </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Befund</h5>
+                    <div class="text-center row gy-5 gx-3">
+                        <div class="col-6">
+                            <div class="py-3 fw-bold mx-3 border bg-light rounded">Belegte Waben:<br>{{ stock_eintrag.wabenbelegt }}</div>
+                        </div> 
+                        <div class="col-6">
+                            <div class="py-3 mx-3 border bg-light rounded">Futter:<br>{{ stock_eintrag.brut_position }}</div>
+                        </div>
+                        <div class="col-6">
+                            <div class="py-3 mx-3 border bg-light rounded">Wabensitz:<br>{{ stock_eintrag.wabensitz }}</div>
+                        </div>
+                        <div class="col-6">
+                            <div class="py-3 mx-3 border bg-light rounded">Sanftmut:<br>{{ stock_eintrag.sanftmut }}</div>
+                        </div>           
+                    </div>
+                </div>
+                </div>
+            </div>    
+        </div>
+        <div class="row my-3">
+            <div class="col-md-6 my-2">
+                <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Kommentar</h5>
+                    <div class="text-center row gy-5 gx-3">
+                        <span>{{ stock_eintrag.kommentar }}</span>
+                    </div>
+                </div>
+                </div>
+            </div>   
+
+            <div class="col-md-6">
+                <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Hinzugefügt / Entnommen</h5>
+                    <div class="text-center row gy-5 gx-3">
+                        <div class="col-lg-4 col-6">
+                            {% if stock_eintrag.veraend_waben == 0 %}
+                                <div class="py-3 mx-3 border bg-light rounded text-muted">Waben:<br>-</div>
+                            {% else %}
+                                <div class="py-3 mx-3 border bg-light rounded">Waben:<br>{{ stock_eintrag.veraend_waben }}</div>
+                            {% endif %}
+                        </div> 
+                        <div class="col-lg-4 col-6">
+                            {% if stock_eintrag.veraend_mittelwand == 0 %}
+                                <div class="py-3 mx-3 border bg-light rounded text-muted">Mittelwände:<br>-</div>
+                            {% else %}
+                                <div class="py-3 mx-3 border bg-light rounded">Mittelwände:<br>{{ stock_eintrag.veraend_mittelwand }}</div>
+                            {% endif %}    
+                        </div>
+                        <div class="col-lg-4 col-6">
+                            {% if stock_eintrag.veraend_brut == 0 %}
+                                <div class="py-3 mx-3 border bg-light rounded text-muted">Brut:<br>-</div>
+                            {% else %}
+                                <div class="py-3 mx-3 border bg-light rounded">Brut:<br>{{ stock_eintrag.veraend_brut }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="col-lg-4 col-6">
+                            {% if stock_eintrag.veraend_drohnenrahmen == 0 %}
+                                <div class="py-3 mx-3 border bg-light rounded text-muted">Drohnenrahmen:<br>-</div>
+                            {% else %}
+                                <div class="py-3 mx-3 border bg-light rounded">Drohnenrahmen:<br>{{ stock_eintrag.veraend_drohnenrahmen }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="col-lg-4 col-6">
+                            {% if stock_eintrag.veraend_bienen == 0 %}
+                                <div class="py-3 mx-3 border bg-light rounded text-muted">Bienen:<br>-</div>
+                            {% else %}
+                                <div class="py-3 mx-3 border bg-light rounded">Bienen:<br>{{ stock_eintrag.veraend_bienen }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="col-lg-4 col-6">
+                            {% if stock_eintrag.veraend_honig_kg == 0 %}
+                                <div class="py-3 mx-3 border bg-light rounded text-muted">Honig (kg):<br>-</div>
+                            {% else %}
+                                <div class="py-3 mx-3 border bg-light rounded">Honig (kg):<br>{{ stock_eintrag.veraend_honig_kg }}</div>
+                            {% endif %}
+                        </div>           
+                    </div>
+                </div>
+                </div>
+            </div>   
+        </div>
+    </div>
+</div>
+<!--
+ {% for stock in stocks %}
+ <div class="article-metadata">
+   <a class="mr-2" href="#">{{ stock.autor.username }}</a>
+   <small class="text-muted">{{ stock.date_posted.strftime('%Y-%m-%d') }}</small>
+ </div>
+ <p class="article-content">{{ stock.content }}</p>
+ <h5>Allgemeiner Befund</h5>
+ <p class="mb-0"><u>Anzahl belegter Waben:</u></p>
+   <p>{{ stock.wabenbelegt }}</p>
+ <p class="mb-0"><u>Brut Weiselzellen:</u></p>
+   <p>{{ stock.brutw }}</p>
+ <p class="mb-0"><u>Brut Eier:</u></p>
+   <p>{{ stock.brutei }}</p>
+ <p class="mb-0"><u>Offene Brut:</u></p>
+   <p>{{ stock.brut_offen }}</p>
+ <p class="mb-0"><u>Verdeckte Brut:</u></p>
+   <p>{{ stock.brut_verdeckt }}</p>
+ {% endfor %}
+-->
+{% endblock content %}

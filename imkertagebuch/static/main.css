@@ -1,0 +1,164 @@
+:root {
+  --main-bg-color: #dbb403;
+}
+a {
+  text-decoration: none;
+}
+body {
+    background: #fafafa;
+    color: #333333;
+    margin-top: 5rem;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    color: #444444;
+  }
+  
+  .status_stockkarte {
+    border: #444444 solid 0.4px;
+    padding: 2px 5px;
+  }
+  .stockeintrag_icon {
+    padding: 15px;
+    margin-left: 5px;
+    align-items: center;
+    text-align: center;
+    border: solid 1.8px lightgray;
+  }
+
+  .stock_icon_true {
+    background-color: rgb(117, 189, 9) !important;
+  } 
+  .plus_minus_icon {
+    font-size: 40px;
+    margin: 4px;
+    padding-left: 7px;
+    padding-right: 7px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    border-radius: 15%;
+  }
+
+  .plus_minus_icon:hover {
+    background-color: rgb(238, 236, 236);
+    box-shadow: 0 0 5px rgb(231, 231, 231);
+
+  }
+
+  .plus_minus_icon:hover > i {
+    /*box-shadow: 0 0 5px black;
+    border: rgba(230, 228, 228, 0.815);
+    opacity: 0.75; */
+  }
+
+  .value_plus_minus {
+    width: 7em;
+    border: none;
+    text-align: center;
+    background: rgb(231, 231, 231);
+    box-shadow: 0 0 5px rgb(231, 231, 231);
+    border-radius: 10%;
+  }
+
+  .collapse_btn {
+    font-size: xx-large;
+  }
+
+  .add_content_btn {
+    border: solid 1.8px var(--main-bg-color);
+   /* box-shadow: 0 0 5px var(--main-bg-color);*/
+    padding-top: 15px;
+    padding-bottom: 15px;
+    font-weight: 550;
+  }
+
+  .add_content_btn:hover {
+    box-shadow: 0 0 5px var(--main-bg-color);
+  }
+
+  .table_icon:hover {
+    background: rgb(230, 230, 230);
+
+  }
+  .bg-honig {
+    background-color: #dbb403;
+  }
+  
+  .navbar-brand {
+    color: black;
+  }
+  .site-header .navbar-nav .nav-link  {
+    color: black !important;
+  }
+  
+  /*    */
+ .nav-link:hover .site-header .navbar-nav {
+    color: white;
+  }
+
+  .site-header .navbar-nav .nav-link.active {
+    font-weight: 500;
+  }
+  
+  .content-section {
+    background: #ffffff;
+    padding: 10px 20px;
+    border: 1px solid #dddddd;
+    border-radius: 3px;
+    margin-bottom: 20px;
+  }
+  
+  .article-title {
+    color: #444444;
+  }
+  
+  a.article-title:hover {
+    color: #428bca;
+    text-decoration: none;
+  }
+  
+  .article-content {
+    white-space: pre-line;
+  }
+  
+  .article-img {
+    height: 65px;
+    width: 65px;
+    margin-right: 16px;
+  }
+  
+  .article-metadata {
+    padding-bottom: 1px;
+    margin-bottom: 4px;
+    border-bottom: 1px solid #e3e3e3
+  }
+  
+  .article-metadata a:hover {
+    color: #333;
+    text-decoration: none;
+  }
+  
+  .article-svg {
+    width: 25px;
+    height: 25px;
+    vertical-align: middle;
+  }
+  
+  .account-img {
+    height: 125px;
+    width: 125px;
+    margin-right: 20px;
+    margin-bottom: 16px;
+  }
+  
+  .account-heading {
+    font-size: 2.5rem;
+  }
+
+  /* START LUCAS */ 
+
+  .brut_item {
+    border: solid black;
+    padding: 10px;  
+    width: 40%;
+  }

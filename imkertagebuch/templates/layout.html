@@ -1,0 +1,80 @@
+<!-- Parent Template für Flask Template Inheritance -->
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootsrap_settings.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css')}}">
+     {% if title %}
+    <title>Imkertagebuch - {{ title }}</title>
+    {% else %}
+    <title>Imkertagebuch</title>
+    {% endif %}
+</head>
+<body>
+<header class="site-header">
+    <nav class="navbar navbar-expand-md bg-honig fixed-top">
+      <div class="container">
+        <a href="{{url_for('home')}}">
+          <img src="{{url_for('static', filename='bee.png')}}" height="50px" alt="Bee Icon">      
+        </a>
+        <a class="navbar-brand mr-4" href="/">Imkertagebuch</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="true" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarToggle">
+          <div class="navbar-nav mr-auto">
+            <a class="nav-item nav-link" href="{{ url_for('home') }}">Home</a>
+            <a class="nav-item nav-link" href="{{ url_for('about') }}">About</a>
+          </div>
+          <!-- Navbar Right Side -->
+          <div class="navbar-nav">
+            {% if current_user.is_authenticated %}
+              <a class="nav-item nav-link" href="{{ url_for('new_post') }}">Neuer Post</a>
+              <a class="nav-item nav-link" href="{{ url_for('account') }}">Profil</a>
+              <a class="nav-item nav-link" href="{{ url_for('logout') }}">Logout</a>
+            {% else %}
+              <a class="nav-item nav-link" href="{{ url_for('login') }}">Login</a>
+              <a class="nav-item nav-link" href="{{ url_for('register') }}">Register</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <main role="main" class="container">
+          {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+          {% endwith %}
+        {% block content %}{% endblock %}
+      <!--
+      <div class="col-md-4">
+        <div class="content-section">
+          <h3>Our Sidebar</h3>
+          <p class='text-muted'>You can put any information here you'd like.
+            <ul class="list-group">
+              <li class="list-group-item list-group-item-light">Latest Posts</li>
+              <li class="list-group-item list-group-item-light">Announcements</li>
+              <li class="list-group-item list-group-item-light">Calendars</li>
+              <li class="list-group-item list-group-item-light">etc</li>
+            </ul>
+          </p>
+        </div>
+      </div> -->
+  </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.slim.js" integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='view.js')}}"></script>
+</body>
+</html>

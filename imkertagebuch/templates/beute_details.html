@@ -1,0 +1,40 @@
+{% extends "layout.html" %} 
+{% block content %}
+<h3>{{ beute.name }}</h3>
+<form class="border bg-white" method="POST">
+    {{ form.hidden_tag() }}
+    <div class="row mt-4 my-2 mx-4 g-4">
+        <div class="col-md-6">
+            <label for="name" class="form-label">Name:</label>
+            <div>
+                {{ form.name(type="text", class="form-control", id="name", placeholder=beute.name, readonly=readonly) }}
+            </div>
+        </div>
+    </div>
+    <div class="row mx-4 g-4">
+        <div class="col-md-6">
+            <label for="nummer" class="form-label">Nummer:</label>
+            <div>
+                {{ form.nummer(type="text", class="form-control", id="nummer", placeholder=beute.nummer, readonly=readonly) }}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <label for="standort" class="form-label">Standort:</label>
+            <div>
+                {{ form.standort(type="text", class="form-control", id="standort", placeholder=beute.standort, readonly=readonly) }}
+            </div>        
+        </div>
+    <div class="row text-center mb-3 g-4">
+        <div class="form-group">    <!--TODO Buttons mobiler View anpassen-->
+            {% if readonly == false %}
+                {{ form.submit(class="btn btn-outline-success mx-3") }}         <!--, formnovalidate=True-->
+                <a class="mx-3 btn btn-outline-secondary" href="{{ url_for('get_beute_byID', beute_id=beute.id) }}">Abbrechen</a>
+            {% else %}
+                <a class="mx-3 btn btn-outline-success" href="{{ url_for('update_beute', beute_id=beute.id) }}">Editieren</a>
+            {% endif %}
+            <a class="mx-3 btn btn-outline-danger" href="">Löschen</a>                                             <!--TODO  url_for('delete_beute', beute_id=beute.id) -->
+        </div>
+    </div>
+</form>
+
+{% endblock content %}
